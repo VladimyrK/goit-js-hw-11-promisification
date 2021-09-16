@@ -8,11 +8,11 @@ const makeTransaction = transaction => {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
       const canProcess = Math.random() > 0.3
-
+      const id = transaction.id
       if (canProcess) {
-        resolve(transaction.id, delay)
+        resolve({ id, delay })
       } else {
-        reject(transaction.id)
+        reject(id)
       }
     }, delay)
   })
@@ -20,8 +20,8 @@ const makeTransaction = transaction => {
   return promise
 }
 
-const logSuccess = (id, time) => {
-  console.log(`Transaction ${id} processed in ${time}ms`)
+const logSuccess = ({ id, delay }) => {
+  console.log(`Transaction ${id} processed in ${delay}ms`)
 }
 
 const logError = id => {
